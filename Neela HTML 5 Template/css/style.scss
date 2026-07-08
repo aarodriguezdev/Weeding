@@ -6898,6 +6898,7 @@ textarea.form-control{
 
 // Itinerario Section
 #itinerario {
+  position: relative;
   padding: 80px 0;
 }
 .venue-location-note {
@@ -6974,8 +6975,33 @@ textarea.form-control{
 
 // Dress Code Section
 .dress-code-bg {
-  background: #2c2c2c;
+  background: #59723f;
   padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    width: 407px;
+    height: 804px;
+    position: absolute;
+    top: 50%;
+    z-index: 0;
+    background-position: center center;
+    background-image: url(../images/flower-large-light.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  &::before { left: -80px; transform: translateY(-50%); }
+  &::after { right: -80px; transform: scaleX(-1) translateY(-50%); }
+  .container { position: relative; z-index: 1; }
+}
+@media (max-width: 767px) {
+  .dress-code-bg::before,
+  .dress-code-bg::after { display: none; }
 }
 .dress-code-subtitle {
   display: block;
@@ -7034,6 +7060,7 @@ textarea.form-control{
 
 // Transporte Section
 #transporte {
+  position: relative;
   padding: 70px 0;
 }
 .transporte-card {

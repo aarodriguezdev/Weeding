@@ -6586,6 +6586,8 @@ textarea.form-control {
 
 /* --- Itinerario Section --- */
 #itinerario {
+  position: relative;
+  overflow: hidden;
   padding: 80px 0;
 }
 .venue-location-note {
@@ -6600,6 +6602,7 @@ textarea.form-control {
   padding: 0;
   margin: 0;
   position: relative;
+  z-index: 1;
 }
 .timeline-list::before {
   content: '';
@@ -6666,6 +6669,41 @@ textarea.form-control {
 .dress-code-bg {
   background: #59723f;
   padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.dress-code-bg::before,
+.dress-code-bg::after {
+  content: "";
+  width: 407px;
+  height: 804px;
+  position: absolute;
+  top: 50%;
+  z-index: 0;
+  background-position: center center;
+  background-image: url(../images/flower-large-light.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.18;
+  pointer-events: none;
+}
+.dress-code-bg::before {
+  left: -80px;
+  transform: translateY(-50%);
+}
+.dress-code-bg::after {
+  right: -80px;
+  transform: scaleX(-1) translateY(-50%);
+}
+.dress-code-bg .container {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 767px) {
+  .dress-code-bg::before,
+  .dress-code-bg::after {
+    display: none;
+  }
 }
 .dress-code-subtitle {
   display: block;
@@ -6728,6 +6766,7 @@ textarea.form-control {
 
 /* --- Transporte Section --- */
 #transporte {
+  position: relative;
   padding: 70px 0;
 }
 .transporte-card {

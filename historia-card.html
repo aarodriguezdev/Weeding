@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestra Historia — Andrés & Glenda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'DearScript';
+      src: url('webfonts/dear-script.otf') format('opentype');
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #2a2a2a;
+    }
+    .card {
+      position: relative;
+      width: 480px;
+      min-height: 720px;
+      background-color: #ACBDA7;
+      background-image: url('images/STZ08128.jpg');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(172, 189, 167, 0.88);
+      z-index: 0;
+    }
+    .botanico {
+      position: absolute;
+      width: 190px;
+      height: auto;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .botanico--tl { top: 0; left: 0; }
+    .botanico--tr { top: 0; right: 0; transform: scaleX(-1); }
+
+    /* ── Fotos con efecto papel rasgado ── */
+    .fotos-area {
+      position: absolute;
+      top: 210px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      z-index: 5;
+      padding: 0 24px;
+    }
+    .foto-wrapper {
+      width: 240px;
+      height: 290px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .foto-wrapper.izq {
+      transform: rotate(1.5deg) translateY(-8px);
+      clip-path: polygon(
+        0% 3%, 4% 0%, 9% 4%, 15% 1%, 21% 3%, 28% 0%, 35% 3%, 42% 0%,
+        49% 3%, 56% 0%, 63% 3%, 70% 0%, 77% 3%, 84% 0%, 91% 3%, 97% 0%,
+        100% 2%, 100% 96%, 97% 100%, 91% 97%, 85% 100%, 78% 97%, 71% 100%,
+        64% 97%, 57% 100%, 50% 97%, 43% 100%, 36% 97%, 29% 100%, 22% 97%,
+        15% 100%, 8% 97%, 2% 100%, 0% 97%
+      );
+    }
+    .foto-wrapper.der {
+      transform: rotate(-1.5deg);
+      margin-left: -18px;
+      clip-path: polygon(
+        0% 2%, 5% 0%, 11% 3%, 17% 0%, 24% 3%, 31% 0%, 38% 2%, 45% 0%,
+        52% 3%, 59% 0%, 66% 3%, 73% 0%, 80% 3%, 87% 0%, 93% 3%, 98% 0%,
+        100% 2%, 100% 97%, 97% 100%, 91% 97%, 84% 100%, 77% 97%, 70% 100%,
+        63% 97%, 56% 100%, 49% 97%, 42% 100%, 35% 97%, 28% 100%, 21% 97%,
+        14% 100%, 7% 97%, 2% 100%, 0% 97%
+      );
+    }
+    .foto-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Imagen historia debajo de las fotos ── */
+    .historia-img {
+      position: absolute;
+      top: 410px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: auto;
+      z-index: 6;
+    }
+
+    /* ── Rectángulo verde inferior ── */
+    .verde-banda {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: 338px;
+      bottom: 20px;
+      background: rgba(92, 112, 83, 0.85);
+      z-index: 1;
+    }
+
+    /* ── Título ── */
+    .titulo-area {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 44px 30px 24px;
+    }
+    .andres-glenda {
+      font-family: 'DearScript', cursive;
+      font-size: 3rem;
+      color: #fff;
+      display: block;
+      line-height: 1.2;
+    }
+    .nuestra {
+      font-family: 'Playfair Display', serif;
+      font-size: 5.2rem;
+      font-weight: 400;
+      color: #1a1a1a;
+      line-height: 0.88;
+      display: block;
+      letter-spacing: -0.01em;
+      margin-top: -0.2em;
+    }
+    .historia {
+      font-family: 'DearScript', cursive;
+      font-size: 3rem;
+      color: #fff;
+      display: block;
+      line-height: 1.1;
+      margin-top: -4px;
+    }
+    /* ── Sello y adorno esquinas inferiores ── */
+    .sello-corner {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      width: 80px;
+      height: auto;
+      mix-blend-mode: multiply;
+      z-index: 10;
+    }
+    .adorno-corner {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      width: 70px;
+      height: auto;
+      mix-blend-mode: luminosity;
+      z-index: 10;
+    }
+
+    @media (max-width: 520px) {
+      body { background: #ACBDA7; align-items: flex-start; }
+      .card { width: 100vw; height: 100lvh; min-height: unset; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="images/bontanico.png" class="botanico botanico--tl" alt="">
+    <img src="images/bontanico.png" class="botanico botanico--tr" alt="">
+
+    <div class="verde-banda"></div>
+
+    <div class="fotos-area">
+      <div class="foto-wrapper izq">
+        <img src="images/infancia.png" class="foto-img" alt="Andrés y Glenda de niños">
+      </div>
+      <div class="foto-wrapper der">
+        <img src="images/actual.png" class="foto-img" alt="Andrés y Glenda">
+      </div>
+    </div>
+
+    <img src="images/historia.png" class="historia-img" alt="">
+
+    <img src="images/sello.png" class="sello-corner" alt="">
+    <img src="images/adorno.png" class="adorno-corner" alt="">
+
+    <div class="titulo-area">
+      <span class="andres-glenda">Andrés &amp; Glenda</span>
+      <span class="nuestra">Nuestra</span>
+      <span class="historia">Historia</span>
+    </div>
+  </div>
+</body>
+</html>

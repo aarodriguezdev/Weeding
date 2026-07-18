@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmación de Asistencia — Andrés & Glenda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    @font-face { font-family: 'DearScript'; src: url('webfonts/dear-script.otf') format('opentype'); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #2a2a2a;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      width: 480px;
+      min-height: 720px;
+      background-color: #F5F0E8;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    @media (max-width: 520px) {
+      body { background: #F5F0E8; align-items: flex-start; }
+      .card { width: 100vw; height: 100lvh; min-height: unset; }
+    }
+
+    /* ── Botánicos ── */
+    .botanico {
+      position: absolute;
+      width: 150px;
+      height: auto;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.55;
+    }
+    .botanico.tl { top: 0; left: 0; }
+    .botanico.tr { top: 0; right: 0; transform: scaleX(-1); }
+
+    /* ── Header ── */
+    .card-header {
+      flex-shrink: 0;
+      text-align: center;
+      padding: 48px 40px 22px;
+      position: relative;
+      z-index: 3;
+    }
+    .confirma {
+      display: block;
+      font-family: 'DearScript', cursive;
+      font-size: 2.6rem;
+      color: #59723f;
+      line-height: 1.1;
+    }
+    .asistencia {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: #2a2a2a;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      flex-shrink: 0;
+      height: 1.5px;
+      margin: 0 32px;
+      background: linear-gradient(to right, transparent, rgba(142,174,186,0.8), transparent);
+    }
+
+    /* ── Form ── */
+    .form-body {
+      flex: 1;
+      padding: 28px 40px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      overflow-y: auto;
+      position: relative;
+      z-index: 3;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 8px; }
+
+    .field-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #59723f;
+    }
+
+    .field-input {
+      width: 100%;
+      background: none;
+      border: none;
+      border-bottom: 1.5px solid rgba(89,114,63,0.35);
+      padding: 7px 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: #2a2a2a;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field-input::placeholder { color: rgba(42,42,42,0.35); }
+    .field-input:focus { border-bottom-color: #59723f; }
+
+    /* ── Pill toggle Sí/No ── */
+    .pill-toggle {
+      display: inline-flex;
+      background: rgba(89,114,63,0.12);
+      border-radius: 100px;
+      padding: 3px;
+      align-self: flex-start;
+    }
+    .toggle-btn {
+      padding: 7px 26px;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: rgba(89,114,63,0.55);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      user-select: none;
+    }
+    .toggle-btn.active {
+      background: #59723f;
+      color: #fff;
+    }
+
+    /* ── Nota descriptiva ── */
+    .field-nota {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.78rem;
+      font-style: italic;
+      color: rgba(42,42,42,0.55);
+      line-height: 1.55;
+    }
+
+    /* ── Panel transporte condicional ── */
+    .transporte-panel {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.35s ease;
+    }
+    .transporte-panel.visible {
+      max-height: 160px;
+      opacity: 1;
+    }
+    .transporte-info {
+      background: rgba(89,114,63,0.08);
+      border: 1px solid rgba(89,114,63,0.2);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      gap: 20px;
+    }
+    .transp-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .transp-col-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #59723f;
+    }
+    .transp-col-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem;
+      color: #2a2a2a;
+      line-height: 1.4;
+    }
+    .transp-col-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.72rem;
+      font-style: italic;
+      color: rgba(42,42,42,0.5);
+    }
+    .transp-badge {
+      display: inline-block;
+      background: #59723f;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+    }
+
+    /* ── Submit ── */
+    .submit-wrap {
+      flex-shrink: 0;
+      padding: 4px 40px 36px;
+      position: relative;
+      z-index: 3;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: #59723f;
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:hover  { background: #4a6234; }
+
+    /* ── Mensaje de confirmación ── */
+    .confirm-msg {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      font-family: 'DearScript', cursive;
+      font-size: 2rem;
+      color: #59723f;
+      line-height: 1.4;
+    }
+    /* ── Vista confirmado permanente ── */
+    .confirmed-view {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 32px;
+      gap: 14px;
+    }
+    .confirmed-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(89,114,63,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 4px;
+      font-size: 1.8rem;
+      color: #59723f;
+    }
+    .confirmed-title {
+      display: block;
+      font-family: 'DearScript', cursive;
+      font-size: 2.4rem;
+      color: #59723f;
+      line-height: 1.2;
+    }
+    .confirmed-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: rgba(42,42,42,0.6);
+      line-height: 1.7;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="images/bontanico.png" class="botanico tl" alt="">
+    <img src="images/bontanico.png" class="botanico tr" alt="">
+
+    <!-- Header -->
+    <div class="card-header">
+      <span class="confirma">Confirma tu</span>
+      <span class="asistencia">Asistencia</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Formulario -->
+    <form class="form-body" id="rsvpForm" onsubmit="enviarRSVP(event)">
+
+      <!-- Nombre -->
+      <div class="field">
+        <label class="field-label">Nombre completo</label>
+        <input class="field-input" type="text" name="nombre" placeholder="Tu nombre aquí" required>
+      </div>
+
+      <!-- ¿Asistirás? -->
+      <div class="field">
+        <label class="field-label">¿Asistirás?</label>
+        <div class="pill-toggle">
+          <div class="toggle-btn active" id="asistiSi"  onclick="setAsistencia('si')">Sí</div>
+          <div class="toggle-btn"        id="asistiNo"  onclick="setAsistencia('no')">No</div>
+        </div>
+        <input type="hidden" name="asistencia" id="asistenciaVal" value="si">
+        <p class="field-nota">Por favor confirma antes del 1 de octubre. Tu respuesta nos ayuda a preparar cada detalle con amor.</p>
+      </div>
+
+      <!-- Alergias -->
+      <div class="field">
+        <label class="field-label">Alergias alimentarias</label>
+        <input class="field-input" type="text" name="alergias" placeholder="Ninguna / indica cuál">
+      </div>
+
+      <!-- ¿Necesita transporte? -->
+      <div class="field">
+        <label class="field-label">¿Necesitas transporte?</label>
+        <div class="pill-toggle">
+          <div class="toggle-btn"        id="transpSi" onclick="setTransporte('si')">Sí</div>
+          <div class="toggle-btn active" id="transpNo" onclick="setTransporte('no')">No</div>
+        </div>
+        <input type="hidden" name="transporte" id="transporteVal" value="no">
+      </div>
+
+      <!-- Info transporte (aparece si Sí) -->
+      <div class="transporte-panel" id="transportePanel">
+        <div class="transporte-info">
+          <div class="transp-col">
+            <span class="transp-badge">Cupo limitado</span>
+            <span class="transp-col-label">🚌 Ruta</span>
+            <span class="transp-col-value">Puntarenas → HIKARU → Puntarenas</span>
+            <span class="transp-col-sub">Ida y vuelta incluido</span>
+          </div>
+          <div class="transp-col" style="border-left: 1px solid rgba(89,114,63,0.2); padding-left: 18px;">
+            <span class="transp-col-label" style="margin-top: 22px;">🕐 Horario</span>
+            <span class="transp-col-value">Por confirmar</span>
+            <span class="transp-col-sub">Te avisaremos con anticipación</span>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- Botón enviar -->
+    <div class="submit-wrap">
+      <button class="submit-btn" onclick="enviarRSVP(event)">Confirmar asistencia</button>
+    </div>
+
+    <!-- Mensaje éxito -->
+    <div class="confirm-msg" id="confirmMsg">
+      ¡Gracias!<br>
+      <span style="font-family:'Playfair Display',serif; font-size:1rem; font-style:italic; color:#2a2a2a;">
+        Tu confirmación fue recibida.
+      </span>
+    </div>
+    <!-- Vista confirmado permanente -->
+    <div class="confirmed-view" id="confirmedView">
+      <div class="confirmed-icon">✓</div>
+      <span class="confirmed-title">¡Ya confirmaste!</span>
+      <p class="confirmed-sub">Tu asistencia está registrada.<br>Te esperamos el 14 de noviembre.</p>
+    </div>
+  </div>
+
+  <script>
+    function setAsistencia(val) {
+      document.getElementById('asistenciaVal').value = val;
+      document.getElementById('asistiSi').classList.toggle('active', val === 'si');
+      document.getElementById('asistiNo').classList.toggle('active', val === 'no');
+    }
+
+    function setTransporte(val) {
+      document.getElementById('transporteVal').value = val;
+      document.getElementById('transpSi').classList.toggle('active', val === 'si');
+      document.getElementById('transpNo').classList.toggle('active', val === 'no');
+      document.getElementById('transportePanel').classList.toggle('visible', val === 'si');
+    }
+
+    function showConfirmedView() {
+      document.getElementById('rsvpForm').style.display = 'none';
+      const sw = document.querySelector('.submit-wrap');
+      if (sw) sw.style.display = 'none';
+      document.getElementById('confirmMsg').style.display = 'none';
+      const cv = document.getElementById('confirmedView');
+      cv.style.visibility = '';
+      cv.style.display = 'flex';
+    }
+
+    // ── IndexedDB helpers ──
+    let _db;
+    function openDB(cb) {
+      if (_db) { cb(_db); return; }
+      const req = indexedDB.open('rsvp_ag', 1);
+      req.onupgradeneeded = e => e.target.result.createObjectStore('flags', { keyPath: 'key' });
+      req.onsuccess = e => { _db = e.target.result; cb(_db); };
+      req.onerror   = () => cb(null);
+    }
+    function checkConfirmed(cb) {
+      openDB(db => {
+        if (!db) { cb(false); return; }
+        const req = db.transaction('flags','readonly').objectStore('flags').get('confirmed');
+        req.onsuccess = () => cb(!!req.result);
+        req.onerror   = () => cb(false);
+      });
+    }
+    function markConfirmed() {
+      openDB(db => {
+        if (!db) return;
+        db.transaction('flags','readwrite').objectStore('flags').put({ key:'confirmed', ts: Date.now() });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('rsvpForm');
+      const sw   = document.querySelector('.submit-wrap');
+      form.style.visibility = 'hidden';
+      sw.style.visibility   = 'hidden';
+      checkConfirmed(confirmed => {
+        if (confirmed) {
+          showConfirmedView();
+        } else {
+          form.style.visibility = '';
+          sw.style.visibility   = '';
+        }
+      });
+    });
+
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_X67h0jrb_ClhMY928r5WkPIwT9zTADwHsFcNpiGqhT2OXfFkBIfG68Vq3wKiaoA/exec';
+
+    function enviarRSVP(e) {
+      e.preventDefault();
+      const form = document.getElementById('rsvpForm');
+      const data = new URLSearchParams(new FormData(form));
+      const btn  = document.querySelector('.submit-btn');
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data
+      }).finally(() => {
+        markConfirmed();
+        form.style.display = 'none';
+        document.querySelector('.submit-wrap').style.display = 'none';
+        const msg = document.getElementById('confirmMsg');
+        msg.style.opacity = '1';
+        msg.style.display = 'block';
+        setTimeout(() => {
+          msg.style.transition = 'opacity 0.6s ease';
+          msg.style.opacity = '0';
+          setTimeout(showConfirmedView, 650);
+        }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -87,6 +87,8 @@
 
 #the-wedding {
   background-image: url("../images/STZ08128.jpg");
+  position: relative;
+  overflow: hidden;
 }
 @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6/2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
   #the-wedding {
@@ -1860,7 +1862,7 @@ p.center {
 
 .hero-title {
   color: #59723f;
-  font-family: "Playfair Display", serif;
+  font-family: "Dear Script", cursive;
   font-size: 74pt;
   margin-bottom: 5px;
   position: relative;
@@ -2847,7 +2849,7 @@ p.center {
   padding: 130px 80px;
 }
 .invite .invite_title .text::before, .invite .invite_title .text::after {
-  content: "";
+  content: none;
   width: 173px;
   height: 154px;
   position: absolute;
@@ -6562,6 +6564,49 @@ textarea.form-control {
    BODA ANDRÉS & GLENDA — SECCIONES CUSTOM
    ============================================================ */
 
+/* INVITE — Botánicos, sello y adornos */
+.invite-botanico {
+  position: absolute;
+  width: 210px;
+  height: auto;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.9;
+}
+.invite-botanico--tl { top: 0; left: 0; }
+.invite-botanico--tr { top: 0; right: 0; transform: scaleX(-1); }
+.invite-botanico--bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.invite-botanico--br { bottom: 0; right: 0; transform: scale(-1); }
+
+.invite-sello {
+  display: block;
+  width: 110px;
+  height: auto;
+  margin: -10px auto 24px;
+  mix-blend-mode: multiply;
+  position: relative;
+  z-index: 2;
+}
+
+.invite-adornos {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 16px;
+  margin-top: 20px;
+}
+.invite-adorno {
+  width: 70px;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+.invite-adorno--right { transform: scaleX(-1); }
+
+@media (max-width: 767px) {
+  .invite-botanico { width: 120px; }
+  .invite-sello { width: 80px; }
+  .invite-adorno { width: 50px; }
+}
+
 /* --- Tree Story Section --- */
 .tree-story-section {
   padding: 80px 0;
@@ -6590,6 +6635,23 @@ textarea.form-control {
   overflow: hidden;
   padding: 80px 0;
 }
+/* ── Itinerario botánicos y título ── */
+#itinerario {
+  position: relative;
+  overflow: hidden;
+}
+.itinerario-bot {
+  position: absolute;
+  width: 220px;
+  height: auto;
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 0;
+}
+.itinerario-bot--tl { top: 0; left: 0; }
+.itinerario-bot--tr { top: 0; right: 0; transform: scaleX(-1); }
+
+
 .venue-location-note {
   font-size: 0.92rem;
   opacity: 0.6;
@@ -6823,3 +6885,777 @@ textarea.form-control {
   font-size: 0.82rem;
 }
 
+
+
+/* ══════════════════════════════════════════
+   HISTORIA CARD — integrada en index
+   Prefijo: hc-
+══════════════════════════════════════════ */
+#nuestra-historia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ACBDA7;
+  padding: 60px 0;
+}
+@media (max-width: 520px) {
+  #nuestra-historia { padding: 0; align-items: flex-start; }
+}
+
+.hc-card {
+  position: relative;
+  width: 480px;
+  min-height: 720px;
+  background-color: #ACBDA7;
+  background-image: url('../images/STZ08128.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+.hc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(172,189,167,0.88);
+  z-index: 0;
+}
+@media (max-width: 520px) {
+  .hc-card { width: 100vw; height: 100lvh; min-height: unset; }
+}
+
+.hc-botanico {
+  position: absolute;
+  width: 190px;
+  height: auto;
+  pointer-events: none;
+  z-index: 4;
+}
+.hc-botanico--tl { top: 0; left: 0; }
+.hc-botanico--tr { top: 0; right: 0; transform: scaleX(-1); }
+
+.hc-verde-banda {
+  position: absolute;
+  left: 20px; right: 20px;
+  top: 338px; bottom: 20px;
+  background: rgba(92,112,83,0.85);
+  z-index: 1;
+}
+
+.hc-fotos-area {
+  position: absolute;
+  top: 210px; left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  z-index: 5;
+  padding: 0 24px;
+}
+.hc-foto-wrapper {
+  width: 240px;
+  height: 290px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.hc-foto-wrapper.hc-izq {
+  transform: rotate(1.5deg) translateY(-8px);
+  clip-path: polygon(
+    0% 3%, 4% 0%, 9% 4%, 15% 1%, 21% 3%, 28% 0%, 35% 3%, 42% 0%,
+    49% 3%, 56% 0%, 63% 3%, 70% 0%, 77% 3%, 84% 0%, 91% 3%, 97% 0%,
+    100% 2%, 100% 96%, 97% 100%, 91% 97%, 85% 100%, 78% 97%, 71% 100%,
+    64% 97%, 57% 100%, 50% 97%, 43% 100%, 36% 97%, 29% 100%, 22% 97%,
+    15% 100%, 8% 97%, 2% 100%, 0% 97%
+  );
+}
+.hc-foto-wrapper.hc-der {
+  transform: rotate(-1.5deg);
+  margin-left: -18px;
+  clip-path: polygon(
+    0% 2%, 5% 0%, 11% 3%, 17% 0%, 24% 3%, 31% 0%, 38% 2%, 45% 0%,
+    52% 3%, 59% 0%, 66% 3%, 73% 0%, 80% 3%, 87% 0%, 93% 3%, 98% 0%,
+    100% 2%, 100% 97%, 97% 100%, 91% 97%, 84% 100%, 77% 97%, 70% 100%,
+    63% 97%, 56% 100%, 49% 97%, 42% 100%, 35% 97%, 28% 100%, 21% 97%,
+    14% 100%, 7% 97%, 2% 100%, 0% 97%
+  );
+}
+.hc-foto-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hc-historia-img {
+  position: absolute;
+  top: 410px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: auto;
+  z-index: 6;
+}
+
+.hc-titulo-area {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 44px 30px 24px;
+}
+.hc-andres-glenda {
+  font-family: "Dear Script", cursive;
+  font-size: 3rem;
+  color: #fff;
+  display: block;
+  line-height: 1.2;
+}
+.hc-nuestra {
+  font-family: "Playfair Display", serif;
+  font-size: 5.2rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 0.88;
+  display: block;
+  letter-spacing: -0.01em;
+  margin-top: -0.2em;
+}
+.hc-historia-texto {
+  font-family: "Dear Script", cursive;
+  font-size: 3rem;
+  color: #fff;
+  display: block;
+  line-height: 1.1;
+  margin-top: -4px;
+}
+
+.hc-sello-corner {
+  position: absolute;
+  bottom: 24px; left: 24px;
+  width: 80px; height: auto;
+  mix-blend-mode: multiply;
+  z-index: 10;
+}
+.hc-adorno-corner {
+  position: absolute;
+  bottom: 24px; right: 24px;
+  width: 70px; height: auto;
+  mix-blend-mode: luminosity;
+  z-index: 10;
+}
+
+
+/* ══════════════════════════════════════════
+   RESERVA CARD — integrada en index
+   Prefijo: rc-
+══════════════════════════════════════════ */
+#reserva-la-fecha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #59723f;
+  padding: 60px 0;
+}
+@media (max-width: 520px) {
+  #reserva-la-fecha { padding: 0; align-items: flex-start; }
+}
+.rc-card {
+  position: relative;
+  width: 480px;
+  min-height: 720px;
+  background-color: #59723f;
+  background-image: url('../images/STZ08128.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rc-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(89,114,63,0.80);
+  z-index: 0;
+}
+@media (max-width: 520px) {
+  .rc-card { width: 100vw; height: 100lvh; min-height: unset; }
+}
+.rc-botanico {
+  position: absolute;
+  width: 190px;
+  height: auto;
+  pointer-events: none;
+  z-index: 4;
+}
+.rc-botanico--tl { top: 0; left: 0; }
+.rc-botanico--tr { top: 0; right: 0; transform: scaleX(-1); }
+.rc-frame-outer {
+  position: absolute;
+  inset: 65px 68px 28px 68px;
+  border: 4px solid rgba(255,255,255,0.85);
+  z-index: 2;
+  pointer-events: none;
+}
+.rc-frame-inner {
+  position: absolute;
+  inset: 85px 36px 50px 36px;
+  border: 4px solid rgba(255,255,255,0.85);
+  z-index: 2;
+  pointer-events: none;
+}
+.rc-dark-rect {
+  position: absolute;
+  top: 338px; bottom: 50px;
+  left: 68px; right: 68px;
+  background: rgba(35,48,18,0.45);
+  z-index: 3;
+  pointer-events: none;
+}
+.rc-dark-rect .rc-adorno {
+  position: absolute;
+  width: 82px;
+  height: auto;
+  mix-blend-mode: luminosity;
+}
+.rc-dark-rect .rc-adorno--tl { top: 0; left: 0; transform: scaleX(-1); }
+.rc-dark-rect .rc-adorno--tr { top: 0; right: 0; }
+.rc-dark-rect .rc-adorno--bl { bottom: 20px; left: 0; transform: scale(-1); }
+.rc-dark-rect .rc-adorno--br { bottom: 20px; right: 0; transform: scaleY(-1); }
+.rc-inner {
+  position: absolute;
+  top: 126px;
+  left: 0; right: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+.rc-titulo {
+  font-family: "Playfair Display", serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 0.85;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+.rc-titulo .rc-la {
+  display: block;
+  font-family: "Dear Script", cursive;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1;
+  margin-top: -0.2em;
+  margin-bottom: -0.25em;
+}
+.rc-sello {
+  display: block;
+  width: 7rem;
+  height: auto;
+  margin: 16px auto 22px;
+  mix-blend-mode: multiply;
+  position: relative;
+  z-index: 10;
+}
+.rc-lower-content {
+  position: absolute;
+  top: 338px; bottom: 50px;
+  left: 68px; right: 68px;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  color: #fff;
+}
+.rc-nombres {
+  font-family: "Dear Script", cursive;
+  font-size: 2.7rem;
+  color: #fff;
+  white-space: nowrap;
+  padding-left: 17px;
+}
+.rc-invitan {
+  font-size: 1.25rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.8;
+}
+.rc-fecha {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+.rc-hora {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.1em;
+}
+
+
+/* ══════════════════════════════════════════
+   VESTIMENTA CARD — integrada en index
+   Prefijo: vc-
+══════════════════════════════════════════ */
+#vestimenta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #CAC3CD;
+  padding: 60px 0;
+}
+@media (max-width: 520px) {
+  #vestimenta { padding: 0; align-items: flex-start; }
+}
+.vc-outer-wrapper {
+  position: relative;
+  width: 480px;
+  min-height: 720px;
+  overflow: hidden;
+}
+@media (max-width: 520px) {
+  .vc-outer-wrapper { width: 100vw; height: 100lvh; min-height: unset; }
+}
+.vc-outer-track {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+}
+.vc-slide {
+  width: 50%;
+  min-height: 720px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+@media (max-width: 520px) {
+  .vc-slide { height: 100lvh; min-height: unset; }
+}
+.vc-slide-dama      { background-color: #CAC3CD; }
+.vc-slide-caballero { background-color: #C4CDD6; }
+.vc-card-header {
+  position: relative;
+  flex-shrink: 0;
+  height: 180px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  padding-top: 22px;
+}
+.vc-bot-header {
+  position: absolute;
+  width: 110px;
+  height: auto;
+  top: 0;
+  opacity: 0.65;
+  pointer-events: none;
+}
+.vc-bot-header.vc-izq { left: 0; }
+.vc-bot-header.vc-der { right: 0; transform: scaleX(-1); }
+.vc-titulo-area { position: relative; z-index: 2; }
+.vc-tono-de {
+  display: block;
+  font-family: "Dear Script", cursive;
+  font-size: 2.6rem;
+  color: #3d2a5e;
+  line-height: 1.15;
+}
+.vc-vestimenta-label {
+  display: block;
+  font-family: "Playfair Display", serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: #3d2a5e;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+.vc-divider {
+  flex-shrink: 0;
+  height: 2px;
+  margin: 0 28px;
+  background: linear-gradient(to right, transparent, rgba(139,58,26,0.7), transparent);
+}
+.vc-card-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.vc-img-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.vc-img-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.35s ease;
+}
+.vc-img-slide {
+  flex-shrink: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+}
+.vc-img-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 4px;
+}
+.vc-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.55);
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3d2a5e;
+  backdrop-filter: blur(4px);
+}
+.vc-carousel-btn.vc-prev { left: 6px; }
+.vc-carousel-btn.vc-next { right: 6px; }
+.vc-card-footer {
+  flex-shrink: 0;
+  padding: 14px 28px 24px;
+  text-align: center;
+}
+.vc-swatches {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.vc-swatch {
+  width: 40px;
+  height: 18px;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.vc-footer-text {
+  font-family: "Playfair Display", serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #2e1f4a;
+  line-height: 1.65;
+}
+.vc-pill-nav {
+  position: absolute;
+  top: 128px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+}
+.vc-pill-track {
+  position: relative;
+  display: flex;
+  background: rgba(255,255,255,0.35);
+  border-radius: 100px;
+  padding: 3px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 8px rgba(61,42,94,0.15);
+}
+.vc-pill-btn {
+  position: relative;
+  z-index: 2;
+  padding: 7px 22px;
+  font-family: "Playfair Display", serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(61,42,94,0.6);
+  cursor: pointer;
+  border-radius: 100px;
+  transition: color 0.25s;
+  white-space: nowrap;
+  user-select: none;
+}
+.vc-pill-btn.vc-active { color: #3d2a5e; }
+.vc-pill-indicator {
+  position: absolute;
+  top: 3px; left: 3px;
+  height: calc(100% - 6px);
+  background: #fff;
+  border-radius: 100px;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1), width 0.3s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 1px 4px rgba(61,42,94,0.2);
+}
+
+
+/* ══════════════════════════════════════════
+   RSVP CARD — integrada en index
+   Prefijo: rv-
+══════════════════════════════════════════ */
+#rsvp-confirm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F5F0E8;
+  padding: 60px 0;
+}
+@media (max-width: 520px) {
+  #rsvp-confirm { padding: 0; align-items: flex-start; }
+}
+.rv-card {
+  position: relative;
+  width: 480px;
+  min-height: 720px;
+  background-color: #F5F0E8;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+@media (max-width: 520px) {
+  .rv-card { width: 100vw; height: 100lvh; min-height: unset; }
+}
+.rv-botanico {
+  position: absolute;
+  width: 150px;
+  height: auto;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.55;
+}
+.rv-botanico.rv-tl { top: 0; left: 0; }
+.rv-botanico.rv-tr { top: 0; right: 0; transform: scaleX(-1); }
+.rv-card-header {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 48px 40px 22px;
+  position: relative;
+  z-index: 3;
+}
+.rv-confirma {
+  display: block;
+  font-family: "Dear Script", cursive;
+  font-size: 2.6rem;
+  color: #59723f;
+  line-height: 1.1;
+}
+.rv-asistencia {
+  display: block;
+  font-family: "Playfair Display", serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: #2a2a2a;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-top: 2px;
+}
+.rv-divider {
+  flex-shrink: 0;
+  height: 1.5px;
+  margin: 0 32px;
+  background: linear-gradient(to right, transparent, rgba(142,174,186,0.8), transparent);
+}
+.rv-form-body {
+  flex: 1;
+  padding: 28px 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  position: relative;
+  z-index: 3;
+}
+.rv-field { display: flex; flex-direction: column; gap: 8px; }
+.rv-field-label {
+  font-family: "Playfair Display", serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #59723f;
+}
+.rv-field-input {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1.5px solid rgba(89,114,63,0.35);
+  padding: 7px 0;
+  font-family: "Playfair Display", serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: #2a2a2a;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.rv-field-input::placeholder { color: rgba(42,42,42,0.35); }
+.rv-field-input:focus { border-bottom-color: #59723f; }
+.rv-pill-toggle {
+  display: inline-flex;
+  background: rgba(89,114,63,0.12);
+  border-radius: 100px;
+  padding: 3px;
+  align-self: flex-start;
+}
+.rv-toggle-btn {
+  padding: 7px 26px;
+  font-family: "Playfair Display", serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(89,114,63,0.55);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+  user-select: none;
+}
+.rv-toggle-btn.rv-active { background: #59723f; color: #fff; }
+.rv-field-nota {
+  font-family: "Playfair Display", serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: rgba(42,42,42,0.55);
+  line-height: 1.55;
+}
+.rv-transporte-panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.35s ease;
+}
+.rv-transporte-panel.rv-visible { max-height: 160px; opacity: 1; }
+.rv-transporte-info {
+  background: rgba(89,114,63,0.08);
+  border: 1px solid rgba(89,114,63,0.2);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  gap: 20px;
+}
+.rv-transp-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.rv-transp-col-label {
+  font-family: "Playfair Display", serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #59723f;
+}
+.rv-transp-col-value {
+  font-family: "Playfair Display", serif;
+  font-size: 0.88rem;
+  color: #2a2a2a;
+  line-height: 1.4;
+}
+.rv-transp-col-sub {
+  font-family: "Playfair Display", serif;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: rgba(42,42,42,0.5);
+}
+.rv-transp-badge {
+  display: inline-block;
+  background: #59723f;
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 8px;
+  align-self: flex-start;
+}
+.rv-submit-wrap {
+  flex-shrink: 0;
+  padding: 4px 40px 36px;
+  position: relative;
+  z-index: 3;
+}
+.rv-submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #59723f;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-family: "Playfair Display", serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.rv-submit-btn:active { transform: scale(0.98); }
+.rv-submit-btn:hover  { background: #4a6234; }
+.rv-confirm-msg {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  font-family: "Dear Script", cursive;
+  font-size: 2rem;
+  color: #59723f;
+  line-height: 1.4;
+}
+
+
+/* ── RSVP confirmed view ── */
+.rv-confirmed-view {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 32px;
+  gap: 14px;
+  position: relative;
+  z-index: 3;
+}
+.rv-confirmed-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(89,114,63,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 4px;
+  font-size: 1.8rem;
+  color: #59723f;
+}
+.rv-confirmed-title {
+  display: block;
+  font-family: "Dear Script", cursive;
+  font-size: 2.4rem;
+  color: #59723f;
+  line-height: 1.2;
+}
+.rv-confirmed-sub {
+  font-family: "Playfair Display", serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: rgba(42,42,42,0.6);
+  line-height: 1.7;
+  margin: 0;
+}

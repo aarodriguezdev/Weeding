@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserva la Fecha — Andrés & Glenda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #2a2a2a;
+      font-family: 'Playfair Display', serif;
+    }
+
+    @font-face {
+      font-family: 'DearScript';
+      src: url('webfonts/dear-script.otf') format('opentype');
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      width: 480px;
+      min-height: 720px;
+      background-color: #59723f;
+      background-image: url('images/STZ08128.jpg');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @media (max-width: 520px) {
+      body { background: #59723f; align-items: flex-start; }
+      .card {
+        width: 100vw;
+        height: 100lvh;
+        min-height: unset;
+      }
+    }
+
+    /* Overlay verde sobre la foto */
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(89, 114, 63, 0.80);
+      z-index: 0;
+    }
+
+    /* ── Botánicos — solo esquinas superiores, encima de todo ── */
+    .botanico {
+      position: absolute;
+      width: 190px;
+      height: auto;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .botanico--tl { top: 0; left: 0; }
+    .botanico--tr { top: 0; right: 0; transform: scaleX(-1); }
+
+    /* ── Doble marco — dos rectángulos absolutos ── */
+    .frame-outer {
+      position: absolute;
+      inset: 65px 68px 28px 68px;
+      border: 4px solid rgba(255,255,255,0.85);
+      z-index: 2;
+      pointer-events: none;
+    }
+    /* ── Rectángulo oscuro inferior con adornos ── */
+    .dark-rect {
+      position: absolute;
+      top: 338px;
+      bottom: 50px;
+      left: 68px;
+      right: 68px;
+      background: rgba(35, 48, 18, 0.45);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .dark-rect .adorno {
+      position: absolute;
+      width: 82px;
+      height: auto;
+      mix-blend-mode: luminosity;
+    }
+    .dark-rect .adorno--tl { top: 0;    left: 0;  transform: scaleX(-1); }
+    .dark-rect .adorno--tr { top: 0;    right: 0; }
+    .dark-rect .adorno--bl { bottom: 20px; left: 0;  transform: scale(-1); }
+    .dark-rect .adorno--br { bottom: 20px; right: 0; transform: scaleY(-1); }
+    .frame-inner {
+      position: absolute;
+      inset: 85px 36px 50px 36px;
+      border: 4px solid rgba(255,255,255,0.85);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ── Contenido superior: título + sello ── */
+    .inner {
+      position: absolute;
+      top: 126px;
+      left: 0;
+      right: 0;
+      z-index: 6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    /* ── Título ── */
+    .titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      line-height: 0.85;
+      color: #fff;
+      letter-spacing: 0.01em;
+    }
+    .titulo .la {
+      display: block;
+      font-family: 'DearScript', cursive;
+      font-size: 2.4rem;
+      font-weight: 400;
+      line-height: 1;
+      margin-top: -0.2em;
+      margin-bottom: -0.25em;
+    }
+
+    /* ── Sello dorado ── */
+    .sello {
+      display: block;
+      width: 7rem;
+      height: auto;
+      margin: 16px auto 22px;
+      mix-blend-mode: multiply;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ── Contenido inferior distribuido dentro del dark-rect ── */
+    .lower-content {
+      position: absolute;
+      top: 338px;
+      bottom: 50px;
+      left: 68px;
+      right: 68px;
+      z-index: 6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      text-align: center;
+      color: #fff;
+    }
+
+    /* ── Nombres ── */
+    .nombres {
+      font-family: 'DearScript', cursive;
+      font-size: 2.7rem;
+      color: #fff;
+      white-space: nowrap;
+      padding-left: 17px;
+    }
+
+    /* ── Texto invitación ── */
+    .invitan {
+      font-size: 1.25rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.8;
+    }
+
+    /* ── Fecha ── */
+    .fecha {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.25;
+    }
+    .hora {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.1em;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Botánicos solo arriba -->
+    <img src="images/bontanico.png" class="botanico botanico--tl" alt="">
+    <img src="images/bontanico.png" class="botanico botanico--tr" alt="">
+
+    <!-- Doble marco -->
+    <div class="frame-outer"></div>
+    <div class="frame-inner"></div>
+
+    <!-- Contenido superior: título + sello -->
+    <div class="inner">
+      <div class="titulo">
+        Reserva
+        <span class="la">La</span>
+        Fecha
+      </div>
+      <img src="images/sello.png" class="sello" alt="">
+    </div>
+
+    <!-- Contenido inferior: distribuido dentro del dark-rect -->
+    <div class="lower-content">
+      <div class="nombres">Andrés &amp; Glenda</div>
+      <p class="invitan">Los invitan a compartir el día<br>más especial de su vida</p>
+      <div class="fecha-hora">
+        <div class="fecha">Sábado 14 de<br>Noviembre 2026</div>
+        <div class="hora">2:00 PM</div>
+      </div>
+    </div>
+
+    <!-- Rectángulo oscuro con adornos en las 4 esquinas -->
+    <div class="dark-rect">
+      <img src="images/adorno.png" class="adorno adorno--tl" alt="">
+      <img src="images/adorno.png" class="adorno adorno--tr" alt="">
+      <img src="images/adorno.png" class="adorno adorno--bl" alt="">
+      <img src="images/adorno.png" class="adorno adorno--br" alt="">
+    </div>
+  </div>
+
+</body>
+</html>
